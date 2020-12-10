@@ -5,12 +5,19 @@ import { Injectable } from '@angular/core';
 export class ApiService {
 
     apiKey = "f31ca5ecda72864c91485834fcec0b76";
-    url;
+    urlForWeather;
+    urlForSevenDay;
+
 
     constructor(private http: HttpClient) {
-        this.url = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+        this.urlForWeather = 'http://api.openweathermap.org/data/2.5/weather?q=';
+        this.urlForSevenDay = 'http://api.openweathermap.org/data/2.5/forecast?q=';
     }
     getWeather(city) {
-        return this.http.get(this.url + city + ',' + '&APPID=' + this.apiKey);
+        return this.http.get(this.urlForWeather + city + '&APPID=' + this.apiKey);
+    }
+    
+    getWeatherSeven(city) {
+        return this.http.get(this.urlForWeather + city + '&cnt=7' + '&APPID=' + this.apiKey);
     }
 }

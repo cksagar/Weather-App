@@ -1,43 +1,46 @@
 <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h3 class="text-center my-4">Search for Weather:</h3>
-        <form
-          [formGroup]="weatherSearchForm"
-          (ngSubmit)="sendToAPI(weatherSearchForm.value)"
-        >
-          <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              id="weatherLocation"
-              aria-describedby="weatherLocation"
-              placeholder="Please input a Location"
-              formControlName="location"
-            />
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-success btn-md">
-              Search for the weather
-            </button>
-          </div>
-        </form>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="text-center my-4">Search for Weather:</h3>
+      <form [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPI(weatherSearchForm.value)">
+        <div class="form-group">
+          <input class="form-control" type="text" id="weatherLocation" aria-describedby="weatherLocation"
+            placeholder="Please input a Location" formControlName="location" />
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-md">
+            Search for the weather
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h3 class="text-center my-4">Weather Details:</h3>
+      <div class="info" *ngIf=weatherData>
+        <h3><strong> City: </strong>{{weatherData.name}}</h3>
+        <h5>longitude: {{weatherData.coord.lon}}</h5>
+        <h5>longitude: {{weatherData.coord.lat}}</h5>
+        <h5><strong>Temp: </strong>:{{weatherData.main.temp}}</h5>
+        <h5><strong>tempMax: </strong>{{weatherData.main.temp_max}} </h5>
+        <h5><strong>tempMin: </strong>{{weatherData.main.temp_min}}</h5>
+        <h5> <strong>The weather description: </strong> {{weatherData.weather[0].description}}</h5>
+        <hr>
+        <button (click)="toggleButton()" (ngSubmit)="sendToToggle()" class="btn btn-primary btn-md"> See More.. </button>
+        <div *ngIf="showMe">
+          <h5><strong>Wind Speed: </strong>{{weatherData.main.temp_min}}</h5>
+          <h5> <strong>Humidity: </strong> {{weatherData.main.humidity}}</h5>
+          <h5> <strong>Pressure: </strong>{{weatherData.wind.speed}}</h5>
+          <h5> <strong> Sunrise/Sunset Time: </strong>{{weatherData.sys.sunrise | date:'short' }}</h5>
+        </div>
+
       </div>
-      <div class="col-md-6">
-        <h3 class="text-center my-4">Weather Details:</h3>
-        <div class="info" *ngIf=weatherData>
-            <h1><strong> City: </strong>{{weatherData.city.name}}</h1>
-            <h3>longitude: {{weatherData.city.coord.lon}}</h3>
-            <h3>longitude: {{weatherData.city.coord.lat}}</h3>
-            <h3><strong>Temp: </strong>:{{weatherData.list[0].main.temp}}</h3>
-            <h3><strong>tempMax: </strong>{{weatherData.list[0].main.temp_max}}  </h3>
-            <h3><strong>tempMin: </strong>{{weatherData.list[0].main.temp_min}}</h3>
-            <h3> <strong>The weather description: </strong> {{weatherData.list[0].weather[0].description}}</h3>
-            <h3> <strong>humidity: </strong>{{weatherData.list[0].main.humidity}}</h3>
-          </div>
-          <tr *ngIf="!weatherData">
-            <td colspan="5">{{errorMessage}}</td>
-        </tr>
-      </div>
+      <tr *ngIf="!weatherData">
+        <td colspan="5">{{errorMessage}}</td>
+      </tr>
     </div>
   </div>
+  <div id="divChart">
+    <canvas id="canChart"> 
+    </canvas>
+    </div>
+</div>
