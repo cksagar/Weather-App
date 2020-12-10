@@ -25,7 +25,8 @@
         <h5><strong>tempMin: </strong>{{weatherData.main.temp_min}}</h5>
         <h5> <strong>The weather description: </strong> {{weatherData.weather[0].description}}</h5>
         <hr>
-        <button (click)="toggleButton()" (ngSubmit)="sendToToggle()" class="btn btn-primary btn-md"> See More.. </button>
+        <button (click)="toggleButton()" (ngSubmit)="sendToToggle()" class="btn btn-primary btn-md"> See More..
+        </button>
         <div *ngIf="showMe">
           <h5><strong>Wind Speed: </strong>{{weatherData.main.temp_min}}</h5>
           <h5> <strong>Humidity: </strong> {{weatherData.main.humidity}}</h5>
@@ -40,7 +41,7 @@
     </div>
   </div>
   <div id="divChart">
-    <canvas id="canChart"> 
+    <canvas id="canChart">
     </canvas>
-    </div>
+  </div>
 </div>

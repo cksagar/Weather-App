@@ -16,7 +16,7 @@ export class ApiService {
     getWeather(city) {
         return this.http.get(this.urlForWeather + city + '&APPID=' + this.apiKey);
     }
-    
+
     getWeatherSeven(city) {
         return this.http.get(this.urlForSevenDay + city + '&cnt=7' + '&APPID=' + this.apiKey);
     }
