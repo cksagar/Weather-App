@@ -19,7 +19,7 @@ export class WeatherComponent implements OnInit {
   maxData = [];
 
   constructor(private formBuilder: FormBuilder,
-    private apiService: ApiService) { }
+              private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.weatherSearchForm = this.formBuilder.group({
@@ -47,17 +47,15 @@ export class WeatherComponent implements OnInit {
     this.sendToToggle(this.weatherData.name);
   }
 
-
-
   // -----------------------------
   sendToToggle(name) {
     console.log(name);
     this.apiService
-      .getWeather(name)
+      .getWeatherSeven(name)
       .subscribe(data => {
-        this.weatherData = data;
-        console.log(this.weatherData);
-        this.initData(this.weatherData);
+        this.SevenData = data;
+        console.log(this.SevenData);
+        this.initData(this.SevenData);
       },
         e => {
           this.errorMessage = e.message;
@@ -65,20 +63,19 @@ export class WeatherComponent implements OnInit {
         });
   }
 
-  initData(weatherData) {
-    console.log("mzz: " + weatherData.main.temp_max);
-    console.log("mzz: " + weatherData.main.temp_max);
-    console.log("mzz: " + weatherData.main.temp_max);
-    console.log("mzz: " + weatherData.main.temp_max);
+  initData(SevenData) {
+    console.log('mzz0: ' + SevenData.list[0].main.temp_max);
+    console.log('mzz1: ' + SevenData.list[1].main.temp_max);
+    console.log('mzz2: ' + SevenData.list[2].main.temp_max);
 
-    for (let index = 0; index < weatherData.length; index++) {
-      let element = weatherData[index];
-      console.log("for data : " + element.main.temp_max);
+    for (let index = 0; index < SevenData.list.length; index++) {
+      const element = SevenData.list[index].main.temp_max;
+      console.log('element data : ' + element);
       this.maxData.push(element);
     }
-    console.log(this.maxData.length);
+    console.log("length : ",this.maxData.length);
 
-    var myChart = new Chart("canChart", {
+    const myChart = new Chart('canChart', {
       type: 'bar',
       data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
