@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6">
       <h3 class="text-center my-4">Search for Weather:</h3>
-      <form [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPI(weatherSearchForm.value)">
+      <form [formGroup]="weatherSearchForm" (ngSubmit)="getTodayWeather(weatherSearchForm.value)">
         <div class="form-group">
           <input class="form-control" type="text" id="weatherLocation" aria-describedby="weatherLocation"
             placeholder="Please input a Location" formControlName="location" />
@@ -27,7 +27,7 @@
         <hr>
         <button (click)="toggleButton()" (ngSubmit)="sendToToggle()" class="btn btn-primary btn-md"> See More..
         </button>
-        <div *ngIf="showMe">
+        <div *ngIf="showMore">
           <h5><strong>Wind Speed: </strong>{{weatherData.main.temp_min}}</h5>
           <h5> <strong>Humidity: </strong> {{weatherData.main.humidity}}</h5>
           <h5> <strong>Pressure: </strong>{{weatherData.wind.speed}}</h5>
@@ -40,7 +40,7 @@
       </tr>
     </div>
   </div>
-  <div id="divChart">
+  <div *ngIf="showMore" id="divChart">
     <canvas id="canChart">
     </canvas>
   </div>

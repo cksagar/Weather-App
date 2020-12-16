@@ -14,7 +14,7 @@ export class WeatherComponent implements OnInit {
   public weatherData: any;
   public SevenData: any;
   errorMessage = '';
-  showMe = false;
+  showMore = false;
 
   maxData = [];
 
@@ -27,8 +27,7 @@ export class WeatherComponent implements OnInit {
     });
   }
 
-
-  sendToAPI(formValues) {
+  getTodayWeather(formValues) {
     console.log(formValues);
     this.apiService
       .getWeather(formValues.location)
@@ -43,19 +42,19 @@ export class WeatherComponent implements OnInit {
   }
 
   toggleButton() {
-    this.showMe = !this.showMe;
-    this.sendToToggle(this.weatherData.name);
+    this.showMore = !this.showMore;
+    this.getSevenDayWeather(this.weatherData.name);
   }
 
   // -----------------------------
-  sendToToggle(name) {
+  getSevenDayWeather(name) {
     console.log(name);
     this.apiService
       .getWeatherSeven(name)
       .subscribe(data => {
         this.SevenData = data;
         console.log(this.SevenData);
-        this.initData(this.SevenData);
+        this.showChart(this.SevenData);
       },
         e => {
           this.errorMessage = e.message;
@@ -63,7 +62,7 @@ export class WeatherComponent implements OnInit {
         });
   }
 
-  initData(SevenData) {
+  showChart(SevenData) {
     for (let index = 0; index < SevenData.list.length; index++) {
       const element = SevenData.list[index].main.temp_max;
       this.maxData.push(element);
